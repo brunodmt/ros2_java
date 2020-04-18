@@ -137,9 +137,10 @@ src/ament/ament_tools/scripts/ament.py build --symlink-install --isolated
 
 # android build configuration
 export PYTHON3_EXEC="$( which python3 )"
-export ANDROID_ABI=armeabi-v7a
-export ANDROID_NATIVE_API_LEVEL=android-21
-export ANDROID_TOOLCHAIN_NAME=arm-linux-androideabi-clang
+export ANDROID_NDK=/home/.../Android/Sdk/ndk/21.0.6113669
+export ANDROID_ABI=arm64-v8a
+export ANDROID_NATIVE_API_LEVEL=android-29
+export ANDROID_TOOLCHAIN_NAME=aarch64-linux-android29-clang++
 
 # pull and build ros2 for android
 mkdir -p ${ROS2_ANDROID_WORKSPACE}/src
@@ -154,7 +155,7 @@ ament build --isolated --skip-packages test_msgs \
   -DANDROID_FUNCTION_LEVEL_LINKING=OFF \
   -DANDROID_NATIVE_API_LEVEL=${ANDROID_NATIVE_API_LEVEL} \
   -DANDROID_TOOLCHAIN_NAME=${ANDROID_TOOLCHAIN_NAME} \
-  -DANDROID_STL=gnustl_shared \
+  -DANDROID_STL=c++_shared \
   -DANDROID_ABI=${ANDROID_ABI} \
   -DANDROID_NDK=${ANDROID_NDK} \
   -DTHIRDPARTY=ON \
@@ -163,7 +164,7 @@ ament build --isolated --skip-packages test_msgs \
   -- \
   --parallel \
   --ament-gradle-args \
-  -Pament.android_stl=gnustl_shared -Pament.android_abi=$ANDROID_ABI -Pament.android_ndk=$ANDROID_NDK --
+  -Pament.android_stl=c++_shared -Pament.android_abi=$ANDROID_ABI -Pament.android_ndk=$ANDROID_NDK --
 ```
 
 You can find more information about the Android examples at https://github.com/esteve/ros2_android_examples
